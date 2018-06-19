@@ -1,7 +1,7 @@
 /**
  *
  */
-package cipher;
+package OriginalMath;
 
 import java.math.BigInteger;
 import java.util.Random;
@@ -12,16 +12,16 @@ import java.util.Random;
  *       : generatePrime(int)
  *       : randint(BigInteger)
  */
-public class PrimeProcessor {
+public class Prime {
 
-	/**
-	 *
-	 */
 	final static BigInteger ZERO = BigInteger.ZERO;
 	final static BigInteger ONE = BigInteger.ONE;
 	final static BigInteger TWO = new BigInteger("2");
 
-	public PrimeProcessor() {
+	/**
+	 *
+	 */
+	public Prime() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -72,7 +72,6 @@ public class PrimeProcessor {
 	public static BigInteger generatePrime(int bit) {
 		Random rand = new Random();
 		int l = 10;
-
 		BigInteger a;
 		BigInteger b = new BigInteger(bit-l-1, rand).subtract(ONE);
 		BigInteger p = new BigInteger("4");
