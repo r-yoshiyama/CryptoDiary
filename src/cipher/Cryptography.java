@@ -8,6 +8,9 @@ package cipher;
  *
  */
 public interface Cryptography {
-	String encode(String plainText);
-	String decode(String cipherText);
+	public String encode(String plainText);
+	public String decode(String cipherText);
+	public int getBit();
+	public void setKey(String[] keys);
+
 }

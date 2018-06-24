@@ -79,4 +79,25 @@ public class RSA implements PublicKeyCrypto {
 		return new String[] {this.N.toString(16), this.e.toString(16)};
 	}
 
+
+	@Override
+	public int getBit() {
+		return this.bit;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see cipher.Cryptography#setKey(java.lang.String[])
+	 * setKey({N, e, d});
+	 */
+	@Override
+	public void setKey(String[] keys) {
+		// TODO Auto-generated method stub
+
+		this.N = new BigInteger(keys[0]);
+		this.e = new BigInteger(keys[1]);
+		this.d = new BigInteger(keys[2]);
+
+	}
+
 }

@@ -1,7 +1,7 @@
 /**
  *
  */
-package app;
+package gui;
 
 import cipher.publickey.RSA;
 

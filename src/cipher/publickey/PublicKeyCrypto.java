@@ -10,5 +10,5 @@ import cipher.Cryptography;
  *
  */
 public interface PublicKeyCrypto extends Cryptography {
-	String[] generateKey();
+	public String[] generateKey();
 }
