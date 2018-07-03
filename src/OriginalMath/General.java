@@ -4,6 +4,7 @@
 package OriginalMath;
 
 import java.math.BigInteger;
+import java.util.Random;
 
 /**
  * @author Yopiyama
@@ -15,13 +16,10 @@ public class General {
 	final static BigInteger ONE = BigInteger.ONE;
 	final static BigInteger TWO = new BigInteger("2");
 
-	/**
-	 *
+	/** ExEuclid(a, b)
+	 * a * x + b * y = gcd(a,b)
+	 * return y
 	 */
-	public General() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public static BigInteger exEuclid(BigInteger a, BigInteger b) {
 		BigInteger r0 = a, x0 = ONE, y0 = ZERO;
 		BigInteger r1 = b, x1 = ZERO, y1 = ONE;
@@ -40,5 +38,19 @@ public class General {
 			y1 = y2;
 		}
 		return y0.mod(a);
+	}
+
+
+	/**
+	 * randint method return random number.
+	 * range is 1 to n - 1.
+	 */
+	public static BigInteger randint(BigInteger n) {
+		Random rand = new Random();
+		BigInteger a = new BigInteger(n.bitLength(), rand).add(Prime.ONE);
+		if(a.compareTo(n.subtract(Prime.ONE)) == 1) {
+			a = a.subtract(n);
+		}
+		return a;
 	}
 }

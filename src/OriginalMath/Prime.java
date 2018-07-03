@@ -21,10 +21,6 @@ public class Prime {
 	/**
 	 *
 	 */
-	public Prime() {
-		// TODO Auto-generated constructor stub
-	}
-
 
 	/**
 	 * This method is Miller-Rabin primality test.
@@ -32,7 +28,6 @@ public class Prime {
 	 */
 	@SuppressWarnings("unlikely-arg-type")
 	public static boolean isPrime(BigInteger num, int k) {
-		// TODO: num が nullだった場合の処理を記述すること．
 		BigInteger d, a, t, x;
 
 		if (num.equals(2)) {
@@ -48,7 +43,7 @@ public class Prime {
 
 		for(int i = 0; i < k; i++) {
 //			System.out.println("Debug Comment: " + i);
-			a = randint(num);
+			a = General.randint(num);
 			t = d;
 			x = a.modPow(t, num);
 
@@ -82,20 +77,6 @@ public class Prime {
 		}
 		return p;
 
-	}
-
-
-	/**
-	 * randint method return random number.
-	 * range is 1 to n - 1.
-	 */
-	public static BigInteger randint(BigInteger n) {
-		Random rand = new Random();
-		BigInteger a = new BigInteger(n.bitLength(), rand).add(ONE);
-		if(a.compareTo(n.subtract(ONE)) == 1) {
-			a = a.subtract(n);
-		}
-		return a;
 	}
 
 }

@@ -25,13 +25,11 @@ public class RSA implements PublicKeyCrypto {
 	final static BigInteger TWO = new BigInteger("2");
 
 	public RSA(int bit) {
-		// TODO Auto-generated constructor stub
 		this.bit = bit;
 	}
 
 	@Override
 	public String encode(String plainText) {
-		// TODO Auto-generated method stub
 		BigInteger m = new BigInteger(plainText.getBytes());
 		BigInteger c = m.modPow(this.e, this.N);
 		return new String(c.toString(16));
@@ -39,7 +37,6 @@ public class RSA implements PublicKeyCrypto {
 
 	@Override
 	public String decode(String cipherText) {
-		// TODO Auto-generated method stub
 		BigInteger c = new BigInteger(cipherText, 16);
 		BigInteger m = c.modPow(this.d, this.N);
 		return new String(m.toByteArray());
@@ -52,7 +49,6 @@ public class RSA implements PublicKeyCrypto {
 	 */
 	@Override
 	public String[] generateKey() {
-		// TODO Auto-generated method stub
 		BigInteger p, q, phi;
 
 		System.out.println("generateKey method started. Key Size is " + this.bit + " bit.\n");
@@ -92,8 +88,6 @@ public class RSA implements PublicKeyCrypto {
 	 */
 	@Override
 	public void setKey(String[] keys) {
-		// TODO Auto-generated method stub
-
 		this.N = new BigInteger(keys[0]);
 		this.e = new BigInteger(keys[1]);
 		this.d = new BigInteger(keys[2]);
