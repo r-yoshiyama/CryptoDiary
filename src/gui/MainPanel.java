@@ -37,7 +37,7 @@ public class MainPanel extends JPanel{
 		btn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				mf.changePanel(mf.panelNames[1], mf.panelNames[0]);
+				mf.changePanel((JPanel)mf.menuPanel);
 			}
 		});
 		this.add(btn);
