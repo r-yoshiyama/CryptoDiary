@@ -42,7 +42,6 @@ public class Prime {
 		}
 
 		for(int i = 0; i < k; i++) {
-//			System.out.println("Debug Comment: " + i);
 			a = General.randint(num);
 			t = d;
 			x = a.modPow(t, num);

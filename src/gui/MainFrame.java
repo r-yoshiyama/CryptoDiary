@@ -19,22 +19,21 @@ public class MainFrame extends JFrame{
 	protected String[] panelNames = {"main","menu"};
 	protected MainPanel mainPanel = new MainPanel(this, panelNames[0]);
 	protected MenuPanel menuPanel = new MenuPanel(this, panelNames[1]);
-
+	protected JPanel[] panels = {mainPanel, menuPanel};
 	/**
 	 *
 	 */
 	public MainFrame() {
-		changePanel((JPanel)mainPanel);
-		this.setBounds(10, 10, 1000, 800);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
-
-
+		this.setBounds(10, 10, 900, 600);
+		setPanel(mainPanel);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
+		setVisible(true);
 	}
 
-	public void changePanel(JPanel panel){
+	public void setPanel(JPanel panel){
 		getContentPane().removeAll();
-		super.add(panel);
+		add(panel);
 		validate();
 		repaint();
 	}

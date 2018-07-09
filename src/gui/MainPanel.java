@@ -32,14 +32,16 @@ public class MainPanel extends JPanel{
 	public MainPanel(MainFrame mf, String name) {
 		this.mf = mf;
 		this.name = name;
+
+		setLayout(null);
 		btn = new JButton(mf.panelNames[1] + "に移動");
-		btn.setBounds(20, 50, 150, 40);
 		btn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				mf.changePanel((JPanel)mf.menuPanel);
+				mf.setPanel(mf.panels[1]);
 			}
 		});
+		btn.setBounds(100, 20, 90, 20);
 		this.add(btn);
 	}
 

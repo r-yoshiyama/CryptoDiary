@@ -3,8 +3,6 @@
  */
 package gui;
 
-import javax.swing.JFrame;
-
 /**
  * @author Yopiyama
  *
@@ -15,7 +13,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// Test
+//		Test
 //		String[] text =  {"This is test text.", "Hello"};
 //		FileUtil.writeFile("test.txt", text);
 //		String[] str = FileUtil.readFile("test.txt");
@@ -28,6 +26,6 @@ public class Main {
 //		String decodeText = rsa.decode(cipherText);
 //		System.out.println("\n" + plainText + "\n\n" + cipherText + "\n\n" + decodeText);
 
-		MainFrame frame = new MainFrame();
+		new MainFrame();
 	}
 }
