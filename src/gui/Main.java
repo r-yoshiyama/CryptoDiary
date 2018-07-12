@@ -3,6 +3,8 @@
  */
 package gui;
 
+import util.DataUtil;
+
 /**
  * @author Yopiyama
  *
@@ -20,12 +22,12 @@ public class Main {
 //		for(int i = 0; i < str.length; i++) System.out.println(str[i]);
 //
 //		String plainText = "This is Test Message.";
-//		RSA rsa = new RSA(2048);
+//		RSA rsa = new RSA(512);
 //		rsa.generateKey();
 //		String cipherText = rsa.encode(plainText);
 //		String decodeText = rsa.decode(cipherText);
 //		System.out.println("\n" + plainText + "\n\n" + cipherText + "\n\n" + decodeText);
-
-		new MainFrame();
+		System.out.println(DataUtil.idPassToHash("test", "pass"));
+//		new MainFrame();
 	}
 }

@@ -34,11 +34,11 @@ public class MenuPanel extends JPanel{
 		this.name = name;
 
 		setLayout(null);
-		btn = new JButton(mf.panelNames[0] + "に移動");
+		btn = new JButton(mf.panelNames[2] + "に移動");
 		btn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				mf.setPanel(mf.panels[0]);
+				mf.setPanel(mf.panels[2]);
 			}
 		});
 		btn.setBounds(0, 0, 90, 20);

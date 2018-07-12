@@ -4,7 +4,7 @@
 package OriginalMath;
 
 import java.math.BigInteger;
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * @author Yopiyama
@@ -46,7 +46,7 @@ public class General {
 	 * range is 1 to n - 1.
 	 */
 	public static BigInteger randint(BigInteger n) {
-		Random rand = new Random();
+		SecureRandom rand = new SecureRandom();
 		BigInteger a = new BigInteger(n.bitLength(), rand).add(Prime.ONE);
 		if(a.compareTo(n.subtract(Prime.ONE)) == 1) {
 			a = a.subtract(n);
