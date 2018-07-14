@@ -18,32 +18,47 @@ public class DataUtil {
 	/*
 	 *
 	 */
-
+	private final static int STRETCH = 100;
+	private final static String HASH_ALGO = "SHA-256";
 	/*
 	 *
 	 */
 	public static String idPassToHash(String id, String pass) {
 		SecureRandom rand = new SecureRandom();
 		int saltLength = 20;
-		int stretch = 2;
+
 		String hashText = "";
-		String returnText = "";
 		MessageDigest md = null;
 		try {
-			md = MessageDigest.getInstance("SHA-256");
+			md = MessageDigest.getInstance(HASH_ALGO);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
-			return null;
 		}
 		byte saltBytes[] = new byte[saltLength/2];
 		rand.nextBytes(saltBytes);
 
 		String salt = id + DatatypeConverter.printHexBinary(saltBytes);
-		for(int i = 0; i < stretch; i++) {
+		for(int i = 0; i < STRETCH; i++) {
 			byte[] result = md.digest(new String(hashText + salt + pass).getBytes());
 			hashText = String.format("%040x", new BigInteger(1, result));;
 		}
-		returnText = "$?" + "$" + salt + "$" + hashText;
-		return returnText;
+		return "$1" + "$" + salt + "$" + hashText + "\n";
+	}
+
+	public static boolean hashChk(String id, String pass, String hashText) {
+		MessageDigest md = null;
+		try {
+			md = MessageDigest.getInstance(HASH_ALGO);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		String[] hashList = hashText.split("\\$");
+		String salt = hashList[2];
+		String chkHash = "";
+		for(int i = 0; i < STRETCH; i++) {
+			byte[] result = md.digest(new String(chkHash + salt + pass).getBytes());
+			chkHash = String.format("%040x", new BigInteger(1, result));;
+		}
+		return hashList[3].equals(chkHash);
 	}
 }

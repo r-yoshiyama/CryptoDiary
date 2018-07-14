@@ -3,8 +3,6 @@
  */
 package gui;
 
-import util.DataUtil;
-
 /**
  * @author Yopiyama
  *
@@ -27,7 +25,7 @@ public class Main {
 //		String cipherText = rsa.encode(plainText);
 //		String decodeText = rsa.decode(cipherText);
 //		System.out.println("\n" + plainText + "\n\n" + cipherText + "\n\n" + decodeText);
-		System.out.println(DataUtil.idPassToHash("test", "pass"));
-//		new MainFrame();
+
+		new MainFrame();
 	}
 }

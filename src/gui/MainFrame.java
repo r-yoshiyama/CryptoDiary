@@ -16,12 +16,13 @@ public class MainFrame extends JFrame{
 	 *
 	 */
 	private static final long serialVersionUID = -8026416994513756565L;
-	protected String[] panelNames = {"main", "menu", "login", "register"};
+	protected String[] panelNames = {"main", "menu", "login", "register", "editor"};
 	protected MainPanel mainPanel = new MainPanel(this, panelNames[0]);
 	protected MenuPanel menuPanel = new MenuPanel(this, panelNames[1]);
 	protected LoginPanel loginPanel = new LoginPanel(this, panelNames[2]);
 	protected RegisterPanel registerPanel = new RegisterPanel(this, panelNames[3]);
-	protected JPanel[] panels = {mainPanel, menuPanel, loginPanel, registerPanel};
+	protected EditorPanel editorPanel = new EditorPanel(this, panelNames[4]);
+	protected JPanel[] panels = {mainPanel, menuPanel, loginPanel, registerPanel, editorPanel};
 	/**
 	 *
 	 */

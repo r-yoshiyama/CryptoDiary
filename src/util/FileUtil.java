@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 public class FileUtil {
@@ -34,16 +35,17 @@ public class FileUtil {
 		Path path = Paths.get("./data/" + name);
 		if(!Files.exists(path)) {
 			try {
-				Files.write(path, String.join("\n", strs).getBytes(StandardCharsets.UTF_8.name()));
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-genesrated catch block
-				e.printStackTrace();
+				Files.createFile(path);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else {
-			System.out.println("File already exist.");
+		}
+		try {
+			Files.write(path, String.join("\n", strs).getBytes(StandardCharsets.UTF_8.name()), StandardOpenOption.APPEND);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

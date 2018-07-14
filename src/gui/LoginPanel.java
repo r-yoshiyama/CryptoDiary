@@ -5,6 +5,8 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,6 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import util.DataUtil;
+import util.FileUtil;
 
 /**
  * @author Yopiyama
@@ -24,7 +29,8 @@ public class LoginPanel extends JPanel{
 	@SuppressWarnings("unused")
 	private MainFrame mf;
 	private String name;
-	private JButton btn;
+	private JButton loginBtn;
+	private JButton backBtn;
 	private JLabel idText;
 	private JTextField userId;
 	private JLabel passText;
@@ -52,35 +58,68 @@ public class LoginPanel extends JPanel{
 		passText = new JLabel("Password");
 		password = new JPasswordField("");
 
-		btn = new JButton("Login");
-		btn.addActionListener(new ActionListener(){
+		loginBtn = new JButton("Login");
+		loginBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
 				String user = userId.getText();
 				char[] passArray = password.getPassword();
 				String pass = String.valueOf(passArray);
-				boolean chk = inputChk(user, pass);
-				if (chk == false) {
+				if (inputChk(user, pass) == false || idPassChk(user, pass) == false) {
 					password.setText("");
 					return;
 				} else {
-					mf.setPanel(mf.panels[0]);
+					password.setText("");
+					mf.setPanel(mf.panels[1]);
 				}
 			}
 		});
+		backBtn = new JButton(mf.panelNames[0] + "に移動");
+		backBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				mf.setPanel(mf.panels[0]);
+			}
+		});
+
 		idText.setBounds(xPos, 60, width, height);
 		userId.setBounds(xPos, 100, width, height);
 		passText.setBounds(xPos, 140, width, height);
 		password.setBounds(xPos, 180, width, height);
-		btn.setBounds(xPos, 300, width, height);
+		loginBtn.setBounds(xPos, 380, width, height);
+		backBtn.setBounds(xPos, 500, width, height);
 
 		this.add(idText);
 		this.add(userId);
 		this.add(passText);
 		this.add(password);
-		this.add(btn);
+		this.add(loginBtn);
+		this.add(backBtn);
 	}
 
+	protected boolean idPassChk(String id, String pass) {
+		String[] data = FileUtil.readFile("users");
+		String[] idList = new String[data.length];
+		String[] passList = new String[data.length];
+		for(int i = 0; i < data.length; i++) {
+			String[] tmp = data[i].split(", ");
+			idList[i] = tmp[0];
+			passList[i] = tmp[1];
+		}
+		List<String> list = Arrays.asList(idList);
+		int idIndex = list.indexOf(id);
+		if(idIndex == -1) {
+			JOptionPane.showMessageDialog(this, "ID can't find.", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		if(!DataUtil.hashChk(id, pass, passList[idIndex])) {
+			JOptionPane.showMessageDialog(this, "Password doesen't match.", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		} else {
+			return true;
+		}
+
+	}
 
 	protected boolean inputChk(String id, String pass) {
 		boolean flag = true;

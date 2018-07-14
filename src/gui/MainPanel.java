@@ -21,8 +21,8 @@ public class MainPanel extends JPanel{
 	@SuppressWarnings("unused")
 	private MainFrame mf;
 	private String name;
-	private JButton btn1;
-	private JButton btn2;
+	private JButton loginBtn;
+	private JButton registerBtn;
 	private int xPos = 390;
 	private int width = 120;
 	private int height = 40;
@@ -37,25 +37,29 @@ public class MainPanel extends JPanel{
 		this.name = name;
 
 		setLayout(null);
-		btn1 = new JButton("Login");
-		btn1.addActionListener(new ActionListener(){
+
+		loginBtn = new JButton("Login");
+		loginBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
 				mf.setPanel(mf.panels[2]);
 			}
 		});
-		btn2 = new JButton("Register");
-		btn2.addActionListener(new ActionListener(){
+
+		registerBtn = new JButton("Register");
+		registerBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
 				mf.setPanel(mf.panels[3]);
 			}
 		});
-		btn1.setBounds(xPos, 100, width, height);
-		btn2.setBounds(xPos, 160, width, height);
 
-		this.add(btn1);
-		this.add(btn2);
+
+		loginBtn.setBounds(xPos, 100, width, height);
+		registerBtn.setBounds(xPos, 160, width, height);
+
+		this.add(loginBtn);
+		this.add(registerBtn);
 	}
 
 	public String getPanelName() {
