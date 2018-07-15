@@ -73,7 +73,7 @@ public class RegisterPanel extends JPanel {
 					return;
 				} else {
 					String hashText = DataUtil.idPassToHash(user, pass1);
-					FileUtil.writeFile("./data/users", new String[] {user + ", " + hashText}, true);
+					FileUtil.writeFile("./.data/users", new String[] {user + ", " + hashText}, true);
 					initialSetting(user, pass1);
 					userId.setText("");
 					password.setText("");
