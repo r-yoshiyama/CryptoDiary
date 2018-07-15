@@ -72,10 +72,12 @@ public class EditorPanel extends JPanel {
 
 	public void saveFile() {
 		String text = inputArea.getText();
-		String[] keys = FileUtil.readFile("./data/pass/" + this.id);
-		RSA rsa = new RSA(RSA.BIT1024);
-		rsa.setKeys(keys);
-		text = rsa.encode(text);
+		String[] keys = FileUtil.readFile("./.data/pass/" + this.id);
+		if(!text.isEmpty()) {
+			RSA rsa = new RSA(RSA.BIT1024);
+			rsa.setKeys(keys);
+			text = rsa.encode(text);
+		}
 		Path path = Paths.get(fileName);
 		FileUtil.writeFile(path.toString(), text.split("\n"), false);
 		JOptionPane.showMessageDialog(this, "Save completed", "Complete", JOptionPane.INFORMATION_MESSAGE);
@@ -87,7 +89,7 @@ public class EditorPanel extends JPanel {
 
 	public void setFile(String fileName) {
 		this.fileName = fileName;
-		String[] keys = FileUtil.readFile("./data/pass/" + this.id);
+		String[] keys = FileUtil.readFile("./.data/pass/" + this.id);
 		RSA rsa = new RSA(RSA.BIT1024);
 		rsa.setKeys(keys);
 		String text = String.join("\n", FileUtil.readFile(this.fileName));

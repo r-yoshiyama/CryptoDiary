@@ -118,7 +118,7 @@ public class RegisterPanel extends JPanel {
 				RSA rsa = new RSA(RSA.BIT1024);
 				rsa.generateKey();
 				String[] keys = rsa.getKeys();
-				FileUtil.writeFile("./data/pass/" + id, keys, true);
+				FileUtil.writeFile("./.data/pass/" + id, keys, true);
 				processFlag = true;
 			}
 		}).start();
@@ -129,7 +129,7 @@ public class RegisterPanel extends JPanel {
 	}
 
 	protected boolean existChk(String id) {
-		String[] data = FileUtil.readFile("./data/users");
+		String[] data = FileUtil.readFile("./.data/users");
 		String[] idList = new String[data.length];
 		for(int i = 0; i < data.length; i++) {
 			String[] tmp = data[i].split(", ");

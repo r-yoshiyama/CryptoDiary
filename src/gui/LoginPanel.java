@@ -99,7 +99,7 @@ public class LoginPanel extends JPanel{
 	}
 
 	protected boolean idPassChk(String id, String pass) {
-		String[] data = FileUtil.readFile("./data/users");
+		String[] data = FileUtil.readFile("./.data/users");
 		String[] idList = new String[data.length];
 		String[] passList = new String[data.length];
 		if(data.length > 0) {
