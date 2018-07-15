@@ -1,7 +1,7 @@
 /**
  *
  */
-package OriginalMath;
+package originalmath;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

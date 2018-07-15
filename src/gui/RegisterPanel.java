@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import cipher.publickey.RSA;
 import util.DataUtil;
 import util.FileUtil;
 
@@ -39,6 +40,7 @@ public class RegisterPanel extends JPanel {
 	private int xPos = 390;
 	private int width = 120;
 	private int height = 40;
+	boolean processFlag;
 
 	/**
 	 *
@@ -58,7 +60,7 @@ public class RegisterPanel extends JPanel {
 		confText = new JLabel("Password Confirm");
 		passConf = new JPasswordField("");
 
-		registerBtn = new JButton("Login");
+		registerBtn = new JButton("Register");
 		registerBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -71,19 +73,21 @@ public class RegisterPanel extends JPanel {
 					return;
 				} else {
 					String hashText = DataUtil.idPassToHash(user, pass1);
-					FileUtil.writeFile("users",new String[] {user + ", " + hashText});
+					FileUtil.writeFile("./data/users", new String[] {user + ", " + hashText}, true);
+					initialSetting(user, pass1);
 					userId.setText("");
 					password.setText("");
 					passConf.setText("");
-					mf.setPanel(mf.panels[1]);
+					mf.setIdPassToPanels(user, pass1);
+					mf.setPanel(mf.menuPanel);
 				}
 			}
 		});
-		backBtn = new JButton(mf.panelNames[0] + "に移動");
+		backBtn = new JButton("Go to " + mf.panelNames[0]);
 		backBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				mf.setPanel(mf.panels[0]);
+				mf.setPanel(mf.mainPanel);
 			}
 		});
 
@@ -106,8 +110,26 @@ public class RegisterPanel extends JPanel {
 		this.add(backBtn);
 	}
 
+	protected void initialSetting(String id, String pass) {
+		processFlag = false;
+		new Thread(new Runnable() {
+			@Override
+			public void run(){
+				RSA rsa = new RSA(RSA.BIT1024);
+				rsa.generateKey();
+				String[] keys = rsa.getKeys();
+				FileUtil.writeFile("./data/pass/" + id, keys, true);
+				processFlag = true;
+			}
+		}).start();
+		while(!processFlag) {
+			JOptionPane.showMessageDialog(this, "Please wait...", "Processing...", JOptionPane.INFORMATION_MESSAGE);
+		}
+		JOptionPane.showMessageDialog(this, "Making keys is completed", "Complete", JOptionPane.INFORMATION_MESSAGE);
+	}
+
 	protected boolean existChk(String id) {
-		String[] data = FileUtil.readFile("users");
+		String[] data = FileUtil.readFile("./data/users");
 		String[] idList = new String[data.length];
 		for(int i = 0; i < data.length; i++) {
 			String[] tmp = data[i].split(", ");
@@ -134,7 +156,6 @@ public class RegisterPanel extends JPanel {
 			JOptionPane.showMessageDialog(this, "Password Confirm is required", "Error", JOptionPane.ERROR_MESSAGE);
 			flag = false;
 		}
-
 
 		if(!pass.equals(confirm)) {
 			JOptionPane.showMessageDialog(this, "Password and Confirm don't match", "Error", JOptionPane.ERROR_MESSAGE);

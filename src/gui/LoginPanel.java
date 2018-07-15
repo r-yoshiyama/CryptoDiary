@@ -70,15 +70,16 @@ public class LoginPanel extends JPanel{
 					return;
 				} else {
 					password.setText("");
-					mf.setPanel(mf.panels[1]);
+					mf.setIdPassToPanels(user, pass);
+					mf.setPanel(mf.menuPanel);
 				}
 			}
 		});
-		backBtn = new JButton(mf.panelNames[0] + "に移動");
+		backBtn = new JButton("Go to " + mf.panelNames[0]);
 		backBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				mf.setPanel(mf.panels[0]);
+				mf.setPanel(mf.mainPanel);
 			}
 		});
 
@@ -98,13 +99,17 @@ public class LoginPanel extends JPanel{
 	}
 
 	protected boolean idPassChk(String id, String pass) {
-		String[] data = FileUtil.readFile("users");
+		String[] data = FileUtil.readFile("./data/users");
 		String[] idList = new String[data.length];
 		String[] passList = new String[data.length];
-		for(int i = 0; i < data.length; i++) {
-			String[] tmp = data[i].split(", ");
-			idList[i] = tmp[0];
-			passList[i] = tmp[1];
+		if(data.length > 0) {
+			for(int i = 0; i < data.length; i++) {
+				String[] tmp = data[i].split(", ");
+				idList[i] = tmp[0];
+				passList[i] = tmp[1];
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, "ID can't find.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		List<String> list = Arrays.asList(idList);
 		int idIndex = list.indexOf(id);

@@ -1,7 +1,7 @@
 /**
  *
  */
-package OriginalMath;
+package originalmath;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -65,7 +65,7 @@ public class Prime {
 	 */
 	public static BigInteger generatePrime(int bit) {
 		SecureRandom rand = new SecureRandom();
-		int l = 10;
+		int l = 100;
 		BigInteger a;
 		BigInteger b = new BigInteger(bit-l-1, rand).subtract(ONE);
 		BigInteger p = new BigInteger("4");

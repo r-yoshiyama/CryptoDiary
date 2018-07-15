@@ -6,28 +6,37 @@ package cipher.publickey;
 
 import java.math.BigInteger;
 
-import OriginalMath.General;
-import OriginalMath.Prime;
+import originalmath.General;
+import originalmath.Prime;
 
 /**
  * @author Yopiyama
  *
  */
 public class RSA implements PublicKeyCrypto {
-
+	/*
+	 *
+	 */
 	private int bit;
 	private BigInteger N;
 	private BigInteger e;
 	private BigInteger d;
+	/*
+	 *
+	 */
+	private final static BigInteger ONE = BigInteger.ONE;
 
-	final static BigInteger ZERO = BigInteger.ZERO;
-	final static BigInteger ONE = BigInteger.ONE;
-	final static BigInteger TWO = new BigInteger("2");
-
+	/*
+	 *
+	 */
 	public RSA(int bit) {
 		this.bit = bit;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see cipher.Cryptography#encode(java.lang.String)
+	 */
 	@Override
 	public String encode(String plainText) {
 		BigInteger m = new BigInteger(plainText.getBytes());
@@ -35,6 +44,10 @@ public class RSA implements PublicKeyCrypto {
 		return new String(c.toString(16));
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see cipher.Cryptography#decode(java.lang.String)
+	 */
 	@Override
 	public String decode(String cipherText) {
 		BigInteger c = new BigInteger(cipherText, 16);
@@ -52,7 +65,7 @@ public class RSA implements PublicKeyCrypto {
 		BigInteger p, q, phi;
 
 		System.out.println("generateKey method started. Key Size is " + this.bit + " bit.\n");
-		System.out.println("Generate two big prime number p & q.");
+		System.out.println("Generate two " + this.bit + " bit prime number p & q.");
 		p = Prime.generatePrime(this.bit);
 		q = Prime.generatePrime(this.bit);
 
@@ -64,7 +77,7 @@ public class RSA implements PublicKeyCrypto {
 
 		System.out.println("\nCalculation d (e * d = 1 mod phi).\n");
 		this.d = General.exEuclid(phi, this.e);
-//		System.out.println("e.modInverse(phi).equals(d) = " + this.e.modInverse(phi).equals(d));
+		//		System.out.println("e.modInverse(phi).equals(d) = " + this.e.modInverse(phi).equals(d));
 
 		System.out.println("\nGenerating keys are complete.");
 
@@ -87,11 +100,16 @@ public class RSA implements PublicKeyCrypto {
 	 * setKey({N, e, d});
 	 */
 	@Override
-	public void setKey(String[] keys) {
-		this.N = new BigInteger(keys[0]);
-		this.e = new BigInteger(keys[1]);
-		this.d = new BigInteger(keys[2]);
+	public void setKeys(String[] keys) {
+		this.N = new BigInteger(keys[0], 16);
+		this.e = new BigInteger(keys[1], 16);
+		this.d = new BigInteger(keys[2], 16);
 
+	}
+
+	@Override
+	public String[] getKeys() {
+		return new String[] {this.N.toString(16), this.e.toString(16), this.d.toString(16)};
 	}
 
 }

@@ -42,7 +42,7 @@ public class MainPanel extends JPanel{
 		loginBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				mf.setPanel(mf.panels[2]);
+				mf.setPanel(mf.loginPanel);
 			}
 		});
 
@@ -50,7 +50,7 @@ public class MainPanel extends JPanel{
 		registerBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				mf.setPanel(mf.panels[3]);
+				mf.setPanel(mf.registerPanel);
 			}
 		});
 

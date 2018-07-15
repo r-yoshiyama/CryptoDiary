@@ -22,7 +22,6 @@ public class MainFrame extends JFrame{
 	protected LoginPanel loginPanel = new LoginPanel(this, panelNames[2]);
 	protected RegisterPanel registerPanel = new RegisterPanel(this, panelNames[3]);
 	protected EditorPanel editorPanel = new EditorPanel(this, panelNames[4]);
-	protected JPanel[] panels = {mainPanel, menuPanel, loginPanel, registerPanel, editorPanel};
 	/**
 	 *
 	 */
@@ -34,6 +33,10 @@ public class MainFrame extends JFrame{
 		setVisible(true);
 	}
 
+	public void setIdPassToPanels(String id, String pass) {
+		menuPanel.setIdPass(id, pass);
+		editorPanel.setIdPass(id, pass);
+	}
 	public void setPanel(JPanel panel){
 		getContentPane().removeAll();
 		add(panel);
