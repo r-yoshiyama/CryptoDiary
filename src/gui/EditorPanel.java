@@ -32,6 +32,7 @@ public class EditorPanel extends JPanel {
 	private JTextArea inputArea;
 	private JScrollPane scrollPane;
 	private JButton saveBtn;
+	private JButton backBtn;
 	private String fileName;
 	private String id;
 	@SuppressWarnings("unused")
@@ -55,7 +56,7 @@ public class EditorPanel extends JPanel {
 		inputArea.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		scrollPane = new JScrollPane(inputArea);
 
-		saveBtn = new JButton("save");
+		saveBtn = new JButton("Save");
 		saveBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -64,10 +65,36 @@ public class EditorPanel extends JPanel {
 			}
 		});
 
+		backBtn = new JButton("Back");
+		backBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				if(backChk()) {
+					mf.setPanel(mf.menuPanel);
+				} else {
+					return;
+				}
+			}
+		});
+
 		scrollPane.setBounds(100, 50, 700, 300);
 		saveBtn.setBounds(700, 500, 120, 40);
+		backBtn.setBounds(540, 500, 120, 40);
 		this.add(scrollPane);
 		this.add(saveBtn);
+		this.add(backBtn);
+	}
+
+	public boolean backChk() {
+		int value = JOptionPane.showConfirmDialog(this, this.fileName + " has been modified. Save changes?");
+		if(value == 0) {
+			saveFile();
+			return true;
+		} else if(value == 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void saveFile() {
@@ -93,6 +120,7 @@ public class EditorPanel extends JPanel {
 		RSA rsa = new RSA(RSA.BIT1024);
 		rsa.setKeys(keys);
 		String text = String.join("\n", FileUtil.readFile(this.fileName));
+		System.out.println(text);
 		if(!text.isEmpty()) {
 			inputArea.setText(rsa.decode(text));
 		} else {

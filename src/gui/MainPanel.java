@@ -3,11 +3,14 @@
  */
 package gui;
 
+import java.awt.Component;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  * @author Yopiyama
@@ -23,6 +26,7 @@ public class MainPanel extends JPanel{
 	private String name;
 	private JButton loginBtn;
 	private JButton registerBtn;
+	private JButton exitBtn;
 	private int xPos = 390;
 	private int width = 120;
 	private int height = 40;
@@ -54,12 +58,24 @@ public class MainPanel extends JPanel{
 			}
 		});
 
+		exitBtn = new JButton("Exit");
+		exitBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				Component c = (Component)e.getSource();
+				Window w = SwingUtilities.getWindowAncestor(c);
+				w.dispose();
+				System.exit(0);
+			}
+		});
+
 
 		loginBtn.setBounds(xPos, 100, width, height);
 		registerBtn.setBounds(xPos, 160, width, height);
-
+		exitBtn.setBounds(xPos, 500, width, height);
 		this.add(loginBtn);
 		this.add(registerBtn);
+		this.add(exitBtn);
 	}
 
 	public String getPanelName() {
