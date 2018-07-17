@@ -72,12 +72,15 @@ public class RegisterPanel extends JPanel {
 					passConf.setText("");
 					return;
 				} else {
+					mf.dialog.setTitle("Generate Key Pair");
+					mf.dialog.openDialog();
 					String hashText = DataUtil.idPassToHash(user, pass1);
 					FileUtil.writeFile("./.data/users", new String[] {user + ", " + hashText}, true);
 					initialSetting(user, pass1);
 					userId.setText("");
 					password.setText("");
 					passConf.setText("");
+					mf.dialog.closeDialog();
 					mf.setIdPassToPanels(user, pass1);
 					mf.setPanel(mf.menuPanel);
 				}
@@ -87,6 +90,9 @@ public class RegisterPanel extends JPanel {
 		backBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				userId.setText("");
+				password.setText("");
+				passConf.setText("");
 				mf.setPanel(mf.mainPanel);
 			}
 		});
@@ -112,6 +118,7 @@ public class RegisterPanel extends JPanel {
 
 	protected void initialSetting(String id, String pass) {
 		processFlag = false;
+
 		new Thread(new Runnable() {
 			@Override
 			public void run(){
@@ -122,10 +129,13 @@ public class RegisterPanel extends JPanel {
 				processFlag = true;
 			}
 		}).start();
+
+		int count = 0;
 		while(!processFlag) {
-			JOptionPane.showMessageDialog(this, "Please wait...", "Processing...", JOptionPane.INFORMATION_MESSAGE);
+			mf.dialog.setText("Processing" + new String(new char[count % 10]).replace("\0", "."));
 		}
-		JOptionPane.showMessageDialog(this, "Making keys is completed", "Complete", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this, "Making key is complete", "Complete", JOptionPane.INFORMATION_MESSAGE);
+
 	}
 
 	protected boolean existChk(String id) {

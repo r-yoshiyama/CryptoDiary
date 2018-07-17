@@ -22,6 +22,7 @@ public class MainFrame extends JFrame{
 	protected LoginPanel loginPanel = new LoginPanel(this, panelNames[2]);
 	protected RegisterPanel registerPanel = new RegisterPanel(this, panelNames[3]);
 	protected EditorPanel editorPanel = new EditorPanel(this, panelNames[4]);
+	protected MyDialog dialog = new MyDialog(this, false);
 	/**
 	 *
 	 */
@@ -37,6 +38,7 @@ public class MainFrame extends JFrame{
 		menuPanel.setIdPass(id, pass);
 		editorPanel.setIdPass(id, pass);
 	}
+
 	public void setPanel(JPanel panel){
 		getContentPane().removeAll();
 		add(panel);

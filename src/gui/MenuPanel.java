@@ -105,10 +105,10 @@ public class MenuPanel extends JPanel{
 			}
 			value = JOptionPane.showInputDialog(this,"File List\n* " + String.join("\n* ", fileList) + "\n\nEnter file name.");
 		}
-		if(value != null) {
-			return "./diary/" + id + "/" + value + ".txt";
-		} else {
+		if(value == null || value.isEmpty()) {
 			return "";
+		} else {
+			return "./diary/" + id + "/" + value + ".txt";
 		}
 	}
 
