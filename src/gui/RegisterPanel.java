@@ -72,10 +72,7 @@ public class RegisterPanel extends JPanel {
 					passConf.setText("");
 					return;
 				} else {
-					mf.dialog.setTitle("Generate Key Pair");
-					mf.dialog.openDialog();
-					String hashText = DataUtil.idPassToHash(user, pass1);
-					FileUtil.writeFile("./.data/users", new String[] {user + ", " + hashText}, true);
+					mf.dialog.openDialog("Initialize", "Processing...");
 					initialSetting(user, pass1);
 					userId.setText("");
 					password.setText("");
@@ -118,10 +115,12 @@ public class RegisterPanel extends JPanel {
 
 	protected void initialSetting(String id, String pass) {
 		processFlag = false;
-
 		new Thread(new Runnable() {
 			@Override
 			public void run(){
+				String hashText = DataUtil.idPassToHash(id, pass);
+				FileUtil.writeFile("./.data/users", new String[] {id + ", " + hashText}, true);
+
 				RSA rsa = new RSA(RSA.BIT1024);
 				rsa.generateKey();
 				String[] keys = rsa.getKeys();
@@ -132,7 +131,7 @@ public class RegisterPanel extends JPanel {
 
 		int count = 0;
 		while(!processFlag) {
-			mf.dialog.setText("Processing" + new String(new char[count % 10]).replace("\0", "."));
+			mf.dialog.setText("Processing" + new String(new char[count % 5]).replace("\0", "."));
 		}
 		JOptionPane.showMessageDialog(this, "Making key is complete", "Complete", JOptionPane.INFORMATION_MESSAGE);
 
