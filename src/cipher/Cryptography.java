@@ -11,6 +11,7 @@ public interface Cryptography {
 	/*
 	 *
 	 */
+	int BIT256 = 256;
 	int BIT512 = 512;
 	int BIT1024 = 1024;
 	int BIT2048 = 2048;
